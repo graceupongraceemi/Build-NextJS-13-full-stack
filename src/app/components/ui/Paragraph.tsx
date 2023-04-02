@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
