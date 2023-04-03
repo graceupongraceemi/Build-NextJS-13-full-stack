@@ -15,7 +15,7 @@ export default function RootLayout({
       className={cn('bg-white text-slate-900 antialiased', inter.className)}
     >
       <body className='min-h-screen bg-slate-50 dark:bg-slate-900 antialiased'>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
