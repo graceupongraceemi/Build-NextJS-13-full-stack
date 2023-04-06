@@ -26,6 +26,20 @@ const Navbar = async ({}) => {
           >
             Documentation
           </Link>
+
+          {session ? (
+            <>
+              <Link
+                className={buttonVariants({ variant: 'ghost' })}
+                href='/dashboard'
+              >
+                Dashboard
+              </Link>
+              <SignOutButton />
+            </>
+          ) : (
+            <SignInButton />
+          )}
         </div>
       </div>
     </div>
