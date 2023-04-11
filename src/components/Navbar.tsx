@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { buttonVariants } from '@/ui/Button';
-import { ThemeToggle } from './ThemeToggle';
+import ThemeToggle from './ThemeToggle';
 import SignInButton from '@/components/SignInButton';
 import SignOutButton from './SignOutButton';
 
