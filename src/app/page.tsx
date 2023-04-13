@@ -16,7 +16,9 @@ export default function Home() {
           <LargeHeading
             size='lg'
             className='three-d text-black dark:text-light-gold'
-          ></LargeHeading>
+          >
+            Easily determine <br /> text similarity.
+          </LargeHeading>
         </div>
       </div>
     </div>
