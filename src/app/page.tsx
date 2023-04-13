@@ -1,10 +1,24 @@
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import styles from './page.module.css';
-import Paragraph from '../components/ui/Paragraph';
+import LargeHeading from '@/components/ui/LargeHeading';
 
-const inter = Inter({ subsets: ['latin'] });
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Similarity API | Home',
+  description: 'Free & open-source text similarity API'
+};
 
 export default function Home() {
-  return <main className='bg-red-500'></main>;
+  return (
+    <div className='relative h-screen flex items-center justify-center overflow-x-hidden'>
+      <div className='container pt-32 max-w-7xl mx-auto w-full h-full'>
+        <div className='h-full gap-6 flex flex-col justify-start lg:justify-center items-center lg:items-start'>
+          <LargeHeading
+            size='lg'
+            className='three-d text-black dark:text-light-gold'
+          ></LargeHeading>
+        </div>
+      </div>
+    </div>
+  );
 }
