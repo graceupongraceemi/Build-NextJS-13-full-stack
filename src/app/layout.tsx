@@ -21,7 +21,7 @@ export default function RootLayout({
         <Providers>
           {children}
 
-          <Toaster />
+          <Toaster position='bottom-right' />
 
           {/* @ts-expect-error Server Component*/}
           <Navbar />
