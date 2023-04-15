@@ -1,9 +1,21 @@
 import { FC } from 'react';
 
-interface pageProps {}
+import type { Metadata } from 'next';
+import LargeHeading from '@/components/ui/LargeHeading';
 
-const page: FC<pageProps> = ({}) => {
-  return <div>page</div>;
+export const metadata: Metadata = {
+  title: 'Similarity API | Documentation',
+  description: 'Free & open-source text similarity API'
+};
+
+const page: FC = ({}) => {
+  return (
+    <div className='container max-w-7xl mx-auto mt-12'>
+      <div className='flex flex-col items-center gap-6'>
+        <LargeHeading>Making a request</LargeHeading>
+      </div>
+    </div>
+  );
 };
 
 export default page;
