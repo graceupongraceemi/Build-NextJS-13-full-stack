@@ -26,12 +26,15 @@ const Code: FC<CodeProps> = ({
     if (show && animated) {
       let i = 0;
       setTimeout(() => {
-        const intervalId = setInterval(() => {}, 15);
-        setText(code.slice(0, i));
-        i++;
-        if (i > code.length) {
-          clearInterval(intervalId);
-        }
+        const intervalId = setInterval(() => {
+          setText(code.slice(0, i));
+          i++;
+          if (i > code.length) {
+            clearInterval(intervalId);
+          }
+        }, 15);
+
+        return () => clearInterval(intervalId);
       }, animationDelay || 150);
     }
   }, []);
