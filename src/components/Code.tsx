@@ -27,6 +27,11 @@ const Code: FC<CodeProps> = ({
       let i = 0;
       setTimeout(() => {
         const intervalId = setInterval(() => {}, 15);
+        setText(code.slice(0, i));
+        i++;
+        if (i > code.length) {
+          clearInterval(intervalId);
+        }
       }, animationDelay || 150);
     }
   }, []);
