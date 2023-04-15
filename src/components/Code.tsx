@@ -37,7 +37,7 @@ const Code: FC<CodeProps> = ({
         return () => clearInterval(intervalId);
       }, animationDelay || 150);
     }
-  }, []);
+  }, [code, show, animated, animationDelay]);
 
   return <div>Code</div>;
 };
