@@ -43,7 +43,7 @@ const Code: FC<CodeProps> = ({
   }, [code, show, animated, animationDelay]);
 
   // number of lines
-  const lines = text.split(/\r\n|\r|\n/);
+  const lines = text.split(/\r\n|\r|\n/).length;
 
   const theme = applicationTheme === 'light' ? lightTheme : darkTheme;
 
@@ -55,7 +55,16 @@ const Code: FC<CodeProps> = ({
             className +
             'transition-all w-fit bg-transparent duration-100 py-0 no-scrollbar'
           }
-        ></pre>
+          style={{
+            maxHeight: show ? lines * 24 : 0,
+            opacity: show ? 1 : 0
+          }}
+        >
+          {tokens.map((line, i) => {
+            // eslint-disable-next-line no-unused-vars
+            const { key, ...rest } = getLineProps({ line, key: i });
+          })}
+        </pre>
       )}
     </Highlight>
   );
