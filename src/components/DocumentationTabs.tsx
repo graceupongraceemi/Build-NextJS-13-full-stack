@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ui/Tabs';
 import { FC } from 'react';
 import SimpleBar from 'simplebar-react';
-import Code from './ui/Code';
+import Code from './Code';
 
 const DocumentationTabs: FC = ({}) => {
   return (

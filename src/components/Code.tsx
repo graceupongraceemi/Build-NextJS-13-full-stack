@@ -3,6 +3,9 @@
 import { FC, useEffect, useState } from 'react';
 import { type Language } from 'prism-react-renderer';
 import { useTheme } from 'next-themes';
+import Highlight, { defaultProps, type language } from 'prism-react-renderer';
+import darkTheme from 'prism-react-renderer/themes/nightOwl';
+import lightTheme from 'prism-react-renderer/themes/nightOwlLight';
 
 interface CodeProps {
   code: string;
@@ -39,7 +42,23 @@ const Code: FC<CodeProps> = ({
     }
   }, [code, show, animated, animationDelay]);
 
-  return <div>Code</div>;
+  // number of lines
+  const lines = text.split(/\r\n|\r|\n/);
+
+  const theme = applicationTheme === 'light' ? lightTheme : darkTheme;
+
+  return (
+    <Highlight {...defaultProps} code={text} language={language} theme={theme}>
+      {({ className, tokens, getLineProps, getTokenProps }) => (
+        <pre
+          className={
+            className +
+            'transition-all w-fit bg-transparent duration-100 py-0 no-scrollbar'
+          }
+        ></pre>
+      )}
+    </Highlight>
+  );
 };
 
 export default Code;
