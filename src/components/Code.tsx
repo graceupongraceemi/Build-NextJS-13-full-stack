@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import Highlight, { defaultProps, type language } from 'prism-react-renderer';
 import darkTheme from 'prism-react-renderer/themes/nightOwl';
 import lightTheme from 'prism-react-renderer/themes/nightOwlLight';
+import { getToken } from 'next-auth/jwt';
 
 interface CodeProps {
   code: string;
@@ -63,6 +64,16 @@ const Code: FC<CodeProps> = ({
           {tokens.map((line, i) => {
             // eslint-disable-next-line no-unused-vars
             const { key, ...rest } = getLineProps({ line, key: i });
+
+            return (
+              <div key={`line-${i}`} style={{ position: 'relative' }} {...rest}>
+                {line.map((token, index) => {
+                  // eslint-disable-next-line no-unused-vars
+                  const { key, ...props } = getTokenProps({ token, i });
+                  return <span key={index} {...props}></span>;
+                })}
+              </div>
+            );
           })}
         </pre>
       )}
