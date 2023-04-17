@@ -13,7 +13,7 @@ const DocumentationTabs: FC = ({}) => {
       </TabsList>
       <TabsContent value='nodejs'>
         {/* <SimpleBar></SimpleBar> */}
-        <Code language='javascript' code={nodejs} show />
+        <Code animated language='javascript' code={nodejs} show />
       </TabsContent>
       <TabsContent value='python'></TabsContent>
     </Tabs>
