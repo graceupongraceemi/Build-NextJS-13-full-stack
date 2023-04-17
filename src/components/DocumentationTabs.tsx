@@ -19,7 +19,9 @@ const DocumentationTabs: FC = ({}) => {
         </SimpleBar>
       </TabsContent>
       <TabsContent value='python'>
-        <Code animated language='python' code={python} show />
+        <SimpleBar>
+          <Code animated language='python' code={python} show />
+        </SimpleBar>
       </TabsContent>
     </Tabs>
   );
