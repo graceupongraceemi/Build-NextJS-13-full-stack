@@ -58,7 +58,23 @@ model ApiKey {
 
   requests ApiRequest[]
 
-  @@unique([userId, key, enabled])
+  @@unique([userId, key, enabled])  
+}
+
+model ApiRequest {
+  id: String @id @default(cuid()) 
+  timestamp DateTime @default(now())
+  method String
+  path String
+  status Int
+  duration Int
+
+  useApiKey String
+
+  ApiKey ApiKey @relation(fields: [apiKeyId], references: [id])
+  apiKeyId String
+
+  @@index([apiKeyId, timestamp])
 }
 
 model VerificationToken {
