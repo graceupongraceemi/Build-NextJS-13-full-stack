@@ -1,8 +1,13 @@
 import { FC } from 'react';
 
-interface pageProps {}
+import type { Metadata } from 'next';
 
-const page: FC<pageProps> = ({}) => {
+export const metadata: Metadata = {
+  title: 'Similarity API | Dashboard',
+  description: 'Free & open-source text similarity API'
+};
+
+const page: FC = () => {
   return <div>page</div>;
 };
 
