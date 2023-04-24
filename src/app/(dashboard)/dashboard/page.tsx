@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
+import RequestApiKey from '@/components/RequestApiKey';
+import ApiDashboard from '@/components/ApiDashboard';
 
 export const metadata: Metadata = {
   title: 'Similarity API | Dashboard',
