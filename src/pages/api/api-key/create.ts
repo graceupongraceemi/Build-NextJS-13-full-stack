@@ -1,8 +1,15 @@
 import { authOptions } from '@/lib/auth';
+import { db } from '@/lib/db';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
+import { nanoid } from 'nanoid';
+import { CreateApiData } from '@/types/api';
+import { z } from 'zod';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<CreateApiData>
+) => {
   try {
     const user = await getServerSession(req, res, authOptions).then(
       (res) => res?.user
@@ -14,7 +21,36 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         createdApiKey: null
       });
     }
-  } catch (error) {}
+
+    const existingApiKey = await db.apiKey.findFirst({
+      where: { userId: user.id, enabled: true }
+    });
+
+    if (existingApiKey) {
+      return res.status(400).json({
+        error: 'You already have a valid API key',
+        createdApiKey: null
+      });
+    }
+
+    const createdApiKey = await db.apiKey.create({
+      data: {
+        userId: user.id,
+        key: nanoid()
+      }
+    });
+
+    return res.status(200).json({ error: null, createdApiKey });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ error: error.issues, createdApiKey: null });
+    }
+
+    return res.status(500).json({
+      error: 'Internal Server Error',
+      createdApiKey: null
+    });
+  }
 };
 
-export default handler;
+export default withMethods(['POST', handler]);
