@@ -3,6 +3,8 @@ import { db } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import { FC } from 'react';
+import { formatDistance } from 'date-fns';
+import LargeHeading from './ui/LargeHeading';
 
 const ApiDashboard = async () => {
   const user = await getServerSession(authOptions);
@@ -16,7 +18,24 @@ const ApiDashboard = async () => {
 
   if (!activeApiKey) notFound();
 
-  return <div>ApiDashboard</div>;
+  const userRequests = await db.apiRequest.findMany({
+    where: {
+      apiKeyId: {
+        in: apiKeys.map((key) => key.id)
+      }
+    }
+  });
+
+  const sesrializebleRequests = userRequests.map((req) => ({
+    ...req,
+    timestamp: formatDistance(new Date(req.timestamp), new Date())
+  }));
+
+  return (
+    <div className='container flex flex-col gap-6'>
+      <LargeHeading>Welcome back, {user.user.name}</LargeHeading>
+    </div>
+  );
 };
 
 export default ApiDashboard;
