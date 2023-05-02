@@ -1,4 +1,5 @@
 import { GridColumnHeaderParams, GridColDef } from '@mui/x-data-grid';
+import { FC } from 'react';
 
 const columnsDraft: GridColDef[] = [
   {
@@ -33,3 +34,11 @@ const columns = columnsDraft.map((col) => {
     }
   };
 });
+
+interface TableProps {}
+
+const Table: FC<TableProps> = ({ userRequests }) => {
+  return <div>Table</div>;
+};
+
+export default Table;
