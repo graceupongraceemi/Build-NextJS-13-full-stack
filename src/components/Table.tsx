@@ -1,4 +1,9 @@
+'use client';
+
+import { ThemeProvider, createTheme } from '@mui/material';
 import { GridColumnHeaderParams, GridColDef } from '@mui/x-data-grid';
+import { ApiRequest } from '@prisma/client';
+import { useTheme } from 'next-themes';
 import { FC } from 'react';
 
 const columnsDraft: GridColDef[] = [
@@ -35,10 +40,33 @@ const columns = columnsDraft.map((col) => {
   };
 });
 
-interface TableProps {}
+type ModifiedRequestType<K extends keyof ApiRequest> = Omit<ApiRequest, K> & {
+  timestamp: string;
+};
+
+interface TableProps {
+  userRequests: ModifiedRequestType<'timestamp'>[];
+}
 
 const Table: FC<TableProps> = ({ userRequests }) => {
-  return <div>Table</div>;
+  const { theme: applicationTheme } = useTheme();
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: applicationTheme === 'light' ? 'light' : 'dark'
+    }
+  });
+
+  const rows = userRequests.map((request) => ({
+    id: request.id,
+    col1: request.usedApiKey,
+    col2: request.path,
+    col3: `${request.timestamp} ago`,
+    col4: `${request.duration} ms`,
+    col5: request.status
+  }));
+
+  return <ThemeProvider theme={theme}></ThemeProvider>;
 };
 
 export default Table;
