@@ -2,6 +2,7 @@ import { authOptions } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
+import ApiKeyOptions from './ApiKeyOptions';
 import { formatDistance } from 'date-fns';
 import LargeHeading from './ui/LargeHeading';
 import Paragraph from './ui/Paragraph';
@@ -28,7 +29,7 @@ const ApiDashboard = async () => {
     }
   });
 
-  const sesrializebleRequests = userRequests.map((req) => ({
+  const serializableRequests = userRequests.map((req) => ({
     ...req,
     timestamp: formatDistance(new Date(req.timestamp), new Date())
   }));
@@ -40,13 +41,14 @@ const ApiDashboard = async () => {
         <Paragraph>Your API key:</Paragraph>
         <Input className='w-fit truncate' readOnly value={activeApiKey.key} />
         {/* add options to create new / revoke */}
+        <ApiKeyOptions apiKeyKey={activeApiKey.key} />
       </div>
 
       <Paragraph className='text-center md:text-left mt-t -mb-4'>
         Your API history:
       </Paragraph>
 
-      <Table />
+      <Table userRequests={serializableRequests} />
     </div>
   );
 };

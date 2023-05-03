@@ -1,7 +1,7 @@
 'use client';
 
 import { ThemeProvider, createTheme } from '@mui/material';
-import { GridColumnHeaderParams, GridColDef } from '@mui/x-data-grid';
+import { GridColumnHeaderParams, GridColDef, DataGrid } from '@mui/x-data-grid';
 import { ApiRequest } from '@prisma/client';
 import { useTheme } from 'next-themes';
 import { FC } from 'react';
@@ -66,7 +66,28 @@ const Table: FC<TableProps> = ({ userRequests }) => {
     col5: request.status
   }));
 
-  return <ThemeProvider theme={theme}></ThemeProvider>;
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <DataGrid
+        style={{
+          backgroundColor: applicationTheme === 'light' ? 'white' : '#152238',
+          fontSize: '1rem'
+        }}
+        pageSizeOptions={[5]}
+        disableRowSelectionOnClick
+        autoHeight
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5
+            }
+          }
+        }}
+        columns={columns}
+        rows={rows}
+      />
+    </ThemeProvider>
+  );
 };
 
 export default Table;
