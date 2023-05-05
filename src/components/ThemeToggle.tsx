@@ -12,9 +12,7 @@ import { FC } from 'react';
 import { Button } from '@/components/ui/Button';
 import Icons from '@/components/Icons';
 
-interface ThemeToggleProps {}
-
-const ThemeToggle: FC<ThemeToggleProps> = ({}) => {
+export function ThemeToggle() {
   const { setTheme } = useTheme();
 
   return (
@@ -42,6 +40,4 @@ const ThemeToggle: FC<ThemeToggleProps> = ({}) => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
-
-export default ThemeToggle;
+}
