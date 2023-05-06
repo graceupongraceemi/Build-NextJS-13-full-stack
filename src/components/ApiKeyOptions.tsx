@@ -13,6 +13,7 @@ import { revokeApiKey } from '@/helpers/revoke-api-key';
 import { Button } from './ui/Button';
 import { Loader2 } from 'lucide-react';
 import { toast } from './ui/Toast';
+import { useRouter } from 'next/navigation';
 
 interface ApiKeyOptionsProps {
   apiKeyId: string;
@@ -22,6 +23,25 @@ interface ApiKeyOptionsProps {
 const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [isRevoking, setIsRevoking] = useState<boolean>(false);
+  const router = useRouter();
+
+  const createNewApiKey = async () => {
+    setIsCreatingNew(true);
+
+    try {
+      await revokeApiKey({ keyId: apiKeyId });
+      await createApiKey();
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: 'Error creating API key',
+        message: 'Please try again later',
+        type: 'error'
+      });
+    } finally {
+      setIsCreatingNew(false);
+    }
+  };
 
   return (
     <DropdownMenu>
