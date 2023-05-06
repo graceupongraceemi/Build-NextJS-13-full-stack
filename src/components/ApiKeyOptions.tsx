@@ -5,10 +5,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/ui/DropdownMenu';
+import { createApiKey } from '@/helpers/create-api-key';
+import { revokeApiKey } from '@/helpers/revoke-api-key';
 import { Button } from './ui/Button';
 import { Loader2 } from 'lucide-react';
+import { toast } from './ui/Toast';
 
 interface ApiKeyOptionsProps {
   apiKeyId: string;
@@ -35,9 +39,28 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
           ) : null}
         </Button>
       </DropdownMenuTrigger>
-      navigator.clipboard.writeText(apiKeyKey)
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => {}}>Copy</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            navigator.clipboard.writeText(apiKeyKey);
+
+            toast({
+              title: 'Copied',
+              message: 'API key copied to clipboard',
+              type: 'success'
+            });
+          }}
+        >
+          Copy
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={createNewApiKey}>
+          Create new key
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={revokeCurrentApiKey}>
+          Revoke key
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -41,8 +41,10 @@ const ApiDashboard = async () => {
         <Paragraph>Your API key:</Paragraph>
         <Input className='w-fit truncate' readOnly value={activeApiKey.key} />
         {/* add options to create new / revoke */}
-        <ApiKeyOptions />
-        <ApiKeyOptions apiKeyKey={activeApiKey.key} />
+        <ApiKeyOptions
+          apiKeyId={activeApiKey.id}
+          apiKeyKey={activeApiKey.key}
+        />
       </div>
 
       <Paragraph className='text-center md:text-left mt-t -mb-4'>
