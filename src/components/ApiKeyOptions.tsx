@@ -1,12 +1,21 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { DropdownMenu, DropdownMenuTrigger } from '@/ui/DropdownMenu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/ui/DropdownMenu';
 import { Button } from './ui/Button';
+import { Loader2 } from 'lucide-react';
 
-interface ApiKeyOptionsProps {}
+interface ApiKeyOptionsProps {
+  apiKeyId: string;
+  apiKeyKey: string;
+}
 
-const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({}) => {
+const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
   const [isCreatingNew, setIsCreatingNew] = useState<boolean>(false);
   const [isRevoking, setIsRevoking] = useState<boolean>(false);
 
@@ -21,8 +30,15 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({}) => {
               ? 'Revoking key'
               : 'Options'}
           </p>
+          {isCreatingNew || isRevoking ? (
+            <Loader2 className='animate-spin h-4 w-4' />
+          ) : null}
         </Button>
       </DropdownMenuTrigger>
+      navigator.clipboard.writeText(apiKeyKey)
+      <DropdownMenuContent>
+        <DropdownMenuItem onClick={() => {}}>Copy</DropdownMenuItem>
+      </DropdownMenuContent>
     </DropdownMenu>
   );
 };

@@ -7,7 +7,7 @@ import { formatDistance } from 'date-fns';
 import LargeHeading from './ui/LargeHeading';
 import Paragraph from './ui/Paragraph';
 import { Input } from './ui/Input';
-import { Table } from '@mui/material';
+import { Table } from './ui/Table';
 
 const ApiDashboard = async () => {
   const user = await getServerSession(authOptions);

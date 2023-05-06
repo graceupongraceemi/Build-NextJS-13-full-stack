@@ -6,6 +6,14 @@ import { ApiRequest } from '@prisma/client';
 import { useTheme } from 'next-themes';
 import { FC } from 'react';
 
+// type ModifiedRequestType<K extends keyof ApiRequest> = Omit<ApiRequest, K> & {
+//   timestamp: string;
+// };
+
+interface TableProps {
+  userRequests: ModifiedRequestType<'timestamp'>[];
+}
+
 const columnsDraft: GridColDef[] = [
   {
     field: 'col1',
