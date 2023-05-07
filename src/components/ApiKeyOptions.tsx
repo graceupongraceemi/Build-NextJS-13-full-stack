@@ -43,6 +43,23 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
     }
   };
 
+  const revokeCurrentApiKey = async () => {
+    setIsRevoking(true);
+
+    try {
+      await revokeApiKey({ keyId: apiKeyId });
+      router.refresh();
+    } catch (error) {
+      toast({
+        title: 'Error revoking API key',
+        message: 'Please try again later',
+        type: 'error'
+      });
+    } finally {
+      setIsRevoking(false);
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger disabled={isCreatingNew || isRevoking} asChild>
