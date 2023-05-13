@@ -45,7 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
     );
 
-    const similarity = cosineSimilarity(embeddings[(0, embeddings[1])]);
+    const similarity = cosineSimilarity(embeddings[0], embeddings[1]);
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.issues });
