@@ -1,4 +1,7 @@
+import { cosineSimilarity } from '@/helpers/cosine-similarity';
 import { withMethods } from '@/lib/api-middlewares/with-methods';
+import { db } from '@/lib/db';
+import { openai } from '@/lib/openai';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 
@@ -31,11 +34,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const start = new Date();
 
-    const embedding = await Prommise.all(
+    const embeddings = await Promise.all(
       [text1, text2].map(async (text) => {
-        const res = await openai;
+        const res = await openai.createEmbedding({
+          model: 'text-embedding-ada-002',
+          input: text
+        });
+
+        return res.data.data[0].embedding;
       })
     );
+
+    const similarity = cosineSimilarity(embeddings[(0, embeddings[1])]);
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.issues });
