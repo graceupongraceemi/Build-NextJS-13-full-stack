@@ -1,6 +1,7 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { withAuth } from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
 
 const redis = new Redis({
   url: process.env.REDIS_URL,
@@ -20,6 +21,12 @@ export default withAuth(async function middleware(req) {
     const ip = req.ip ?? '127.0.0.1';
     try {
       const { success } = await ratelimit.limit(ip);
-    } catch (error) {}
+
+      if (!success) return NextResponse.json({ error: 'Too many requests' });
+      return NextResponse.next();
+    } catch (error) {
+      return NextResponse.json({ error: 'Internatl Server Error' });
+    }
   }
+  // Manage route protection
 });
